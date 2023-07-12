@@ -10,8 +10,8 @@
             <input class="form-control"
                     formControlName="name"
                    placeholder="Nombre de la persona">
-            <span class="form-text text-danger">
-                   error message
+            <span *ngIf="isValidField('name')" class="form-text text-danger">
+                   {{ getFieldError('name') }}
             </span>
         </div>
     </div>
@@ -23,10 +23,11 @@
 
             <div class="input-group">
                 <input class="form-control"
-                       placeholder="Agregar favorito">
+                    [formControl]="newFavorite"
+                    placeholder="Agregar favorito">
 
 
-                <button class="btn btn-outline-primary"
+                <button (click)="onAddFavorites()" class="btn btn-outline-primary"
                         type="button">
                     Agregar favorito
                 </button>
@@ -47,13 +48,16 @@
                     <input [formControlName]="i"
                         class="form-control">
 
-                    <button class="btn btn-outline-danger"
+                    <button (click)="onDeleteFavorite(i)" class="btn btn-outline-danger"
                             type="button">
                       Eliminar
-                  </button>
+                    </button>
                 </div>
-                <span class="form-text text-danger">
+                <!-- <span class="form-text text-danger">
                    Este campo es requerido
+                </span> -->
+                <span *ngIf="isValidFieldInArray(favoriteGames, i)" class="form-text text-danger">
+                    Este campo es requerido.
                 </span>
 
             </div>
@@ -80,13 +84,13 @@
 
 
 <span>Valid</span>
-<pre>{{ 'object' | json }}</pre>
+<pre>{{ myForm.valid | json }}</pre>
 <br>
 
 <span>Value</span>
-<pre>{{ 'object' | json }}</pre>
+<pre>{{ myForm.value | json }}</pre>
 <br>
 
 <span>Agregar Juego</span>
-<pre>{{ 'object' | json }}</pre>
-<pre>{{ 'object' | json }}</pre>
+<pre>{{ newFavorite.valid | json }}</pre>
+<pre>{{ newFavorite.value | json }}</pre>
